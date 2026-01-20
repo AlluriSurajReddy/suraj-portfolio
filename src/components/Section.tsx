@@ -11,10 +11,10 @@ export default function Section({ id, title, eyebrow, children }: SectionProps) 
   return (
     <section
       id={id}
-      className="py-12 sm:py-14"
+      className="py-10 sm:py-12"
       style={{ scrollMarginTop: "var(--nav-offset)" }}
     >
-      <div className="mx-auto w-full max-w-4xl px-6">
+      <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
         {eyebrow ? (
           <p className="text-xs font-semibold tracking-widest text-slate-500">
             {eyebrow.toUpperCase()}

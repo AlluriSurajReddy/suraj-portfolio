@@ -1,9 +1,12 @@
+"use client";
+
 import Hero from "@/components/Hero";
 import Section from "@/components/Section";
 import { profile } from "@/data/profile";
 import Reveal from "@/components/Reveal";
 import { Cloud, ShieldCheck, Gauge, Wrench } from "lucide-react";
 import { Server, Layout, Database, Network, TestTube } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 const highlightIcons = {
   cloud: Cloud,
@@ -24,6 +27,36 @@ const skillIcons = {
 } as const;
 
 export default function Home() {
+  const featuredProjects = profile.projects.filter((p) => p.featured);
+  const scrollerRef = useRef<HTMLDivElement | null>(null);
+  const [activeIdx, setActiveIdx] = useState(0);
+  const [isScrollable, setIsScrollable] = useState(false);
+
+  useEffect(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+
+    const onScroll = () => {
+      const children = Array.from(el.children) as HTMLElement[];
+      if (children.length === 0) return;
+
+      const left = el.scrollLeft;
+
+      children.forEach((child, idx) => {
+        const cardWidth = children[0].clientWidth;
+        setActiveIdx(Math.round(left / cardWidth));
+      });
+
+      const cardWidth = scrollerRef.current?.children[0]?.clientWidth || 1;
+      setActiveIdx(Math.round(el.scrollLeft / cardWidth));
+    };
+
+    setIsScrollable(el.scrollWidth > el.clientWidth);
+    el.addEventListener("scroll", onScroll, { passive: true });
+
+    return () => el.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
     <main>
       <Hero />
@@ -38,7 +71,6 @@ export default function Home() {
             style={{ background: `radial-gradient(circle at 40% 40%, rgb(var(--accent-2)), transparent 60%)` }}
           />
         </div>
-
         <Section id="about" title="About" eyebrow="Introduction">
           <Reveal>
             <div className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm">
@@ -177,69 +209,99 @@ export default function Home() {
         </Section>
 
         <Section id="projects" title="Featured Projects" eyebrow="Portfolio">
-          <div className="grid gap-4 sm:grid-cols-2">
-            {profile.projects
-              .filter((p) => p.featured)
-              .map((p, idx) => (
-                <Reveal key={p.name} delayMs={idx * 90}>
-                  <div className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-md">
+          <div className="relative">
+            {/* Arrows */}
+            {isScrollable && (
+              <>
+                <button
+                  onClick={() => scrollerRef.current?.scrollBy({ left: -window.innerWidth * 0.6, behavior: "smooth" })}
+                  className="carousel-arrow left-0"
+                >
+                  ‹
+                </button>
 
-                    <p className="text-sm font-semibold text-slate-900">{p.name}</p>
-                    <p className="mt-2 text-sm leading-relaxed text-slate-700">
-                      {p.oneLiner}
-                    </p>
+                <button
+                  onClick={() => scrollerRef.current?.scrollBy({ left: window.innerWidth * 0.6, behavior: "smooth" })}
+                  className="carousel-arrow right-0"
+                >
+                  ›
+                </button>
+              </>
+            )}
 
-                    <div className="mt-4 space-y-3 text-sm leading-relaxed text-slate-700">
-                      <p>
-                        <span className="font-semibold text-slate-900">Problem:</span>{" "}
-                        {p.problem}
-                      </p>
-                      <p>
-                        <span className="font-semibold text-slate-900">Solution:</span>{" "}
-                        {p.solution}
-                      </p>
-                      <p>
-                        <span className="font-semibold text-slate-900">Impact:</span>{" "}
-                        {p.impact}
-                      </p>
-                    </div>
+            {/* Scroll container */}
+            <div
+              ref={scrollerRef}
+              className="hide-scrollbar flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth px-1 sm:px-0"
+            >
+              {featuredProjects.map((p, idx) => (
+                <div
+                  key={p.name}
+                  className="
+            snap-center 
+            flex-shrink-0 
+            w-[90%] 
+            sm:w-[45%] 
+            lg:w-[32%] 
+            h-[600px] 
+            sm:h-[640px]
+            overflow-hidden 
+            rounded-2xl 
+            border border-slate-200 
+            bg-white 
+            shadow-sm 
+            p-6 
+            flex flex-col
+          "
+                >
+                  <p className="text-sm font-semibold text-slate-900">{p.name}</p>
+                  <p className="mt-2 text-sm text-slate-700">{p.oneLiner}</p>
 
-                    <ul className="mt-4 list-disc space-y-1 pl-5 text-sm text-slate-700">
-                      {p.highlights.map((h) => (
-                        <li key={h}>{h}</li>
-                      ))}
-                    </ul>
-
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      {p.tech.map((t) => (
-                        <span
-                          key={t}
-                          className="rounded-full border border-slate-200 px-3 py-1 text-xs text-slate-700"
-                        >
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-
-                    <div className="mt-6">
-                      {p.links.github ? (
-                        <a
-                          href={p.links.github}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="btn btn-primary"
-                        >
-                          View on GitHub
-                        </a>
-                      ) : (
-                        <span className="text-sm text-slate-500">
-                          GitHub link (add later)
-                        </span>
-                      )}
-                    </div>
+                  <div className="mt-4 space-y-3 text-sm text-slate-700 overflow-y-auto">
+                    <p><span className="font-semibold">Problem:</span> {p.problem}</p>
+                    <p><span className="font-semibold">Solution:</span> {p.solution}</p>
+                    <p><span className="font-semibold">Impact:</span> {p.impact}</p>
                   </div>
-                </Reveal>
+
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {p.tech.map((t) => (
+                      <span key={t} className="chip">{t}</span>
+                    ))}
+                  </div>
+
+                  {p.links.github && (
+                    <div className="mt-8 pt-2">
+                      <a
+                        href={p.links.github}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="btn btn-primary w-full"
+                      >
+                        View on GitHub
+                      </a>
+                    </div>
+                  )}
+                  <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white to-transparent"></div>
+                </div>
               ))}
+            </div>
+
+            {/* Dots */}
+            {isScrollable && (
+              <div className="mt-4 flex justify-center gap-2">
+                {featuredProjects.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => {
+                      const card = scrollerRef.current?.children[idx] as HTMLElement;
+                      card.scrollIntoView({ behavior: "smooth", inline: "center" });
+                    }}
+                    className={`h-2.5 w-2.5 rounded-full transition-all ${idx === activeIdx ? "bg-slate-900 scale-110" : "bg-slate-300"
+                      }`}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         </Section>
 
@@ -282,7 +344,7 @@ export default function Home() {
       </div>
 
       <footer className="border-t border-slate-200 py-10">
-        <div className="mx-auto max-w-4xl px-6 text-sm text-slate-600">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 text-sm text-slate-600">
           © {new Date().getFullYear()} {profile.name}
         </div>
       </footer>

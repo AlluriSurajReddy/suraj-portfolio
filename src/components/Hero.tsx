@@ -1,14 +1,15 @@
 // src/components/Hero.tsx
 import { profile } from "@/data/profile";
 import { Mail, Linkedin, Github, Download } from "lucide-react";
+import Image from "next/image";
 
 export default function Hero() {
   const hasPhoto = true;
 
   return (
     <section>
-      <div className="mx-auto w-full max-w-4xl px-6 py-16">
-        <div className="grid gap-10 sm:grid-cols-[1fr_180px] sm:items-start">
+      <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid gap-10 sm:grid-cols-[1fr_auto] sm:items-start">
           <div>
             <p className="text-sm text-slate-600">{profile.location}</p>
 
@@ -55,7 +56,7 @@ export default function Hero() {
               </a>
 
               <a
-                href="/Suraj_Reddy_Alluri_Resume.pdf"
+                href="/Suraj_Reddy_Resume.pdf"
                 className="btn btn-primary gap-2 shadow-md"
                 download
               >
@@ -76,22 +77,13 @@ export default function Hero() {
             )}
           </div>
 
-          <div className="sm:justify-self-end">
-            <div className="h-28 w-28 overflow-hidden rounded-2xl border border-slate-200 shadow-sm sm:h-40 sm:w-40">
-              {hasPhoto ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src="/profile.jpg"
-                  alt={`${profile.name} profile photo`}
-                  className="h-full w-full object-cover"
-                />
-              ) : (
-                <div className="flex h-full w-full items-center justify-center bg-slate-50">
-                  <span className="text-sm font-semibold text-slate-500">
-                    {profile.name.split(" ").map((w) => w[0]).slice(0, 2).join("")}
-                  </span>
-                </div>
-              )}
+          <div className="flex justify-center lg:justify-end">
+            <div className="h-48 w-36 sm:h-64 sm:w-48 lg:h-72 lg:w-56 lg:mr-10 overflow-hidden rounded-2xl border border-slate-200 shadow-sm">
+              <img
+                src="/profile.jpg"
+                className="h-full w-full object-cover object-center"
+                alt="profile"
+              />
             </div>
           </div>
         </div>

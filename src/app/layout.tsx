@@ -3,7 +3,7 @@ import './globals.css';
 import Header from "@/components/Header";
 
 export const metadata: Metadata = {
-  title: "Suraj Alluri | Portfolio",
+  title: "Suraj Reddy | Portfolio",
   description: "Java Full Stack Developer focused on Spring Boot, AWS, and scalable web applications.",
 };
 

@@ -1,9 +1,9 @@
 export const profile = {
-  name: "Suraj Reddy Alluri",
+  name: "Suraj Reddy",
   headline: "Software Engineer",
   subHeadline: "Backend & Cloud Systems (Java, Spring Boot)",
   location: "USA",
-  email: "surajreddy1707@gmail.com",
+  email: "surajreddy170@gmail.com",
   availability: "Open to Backend and Full-Stack roles (Java, Spring Boot, Cloud).",
   topTech: ["Java", "Spring Boot", "Microservices", "AWS", "PostgreSQL", "React/Next.js"],
   links: {
@@ -22,7 +22,7 @@ export const profile = {
     { label: "Core stack", value: "Java • Spring • React" },
     { label: "Projects", value: "2+ featured" },
   ],
-  
+
   about: [
     "I’m a software engineer who focuses on building backend systems that stay reliable in real production environments.",
     "I’ve worked on cloud-native applications across banking, healthcare, retail, and insurance—usually in teams where correctness, security, and performance matter more than flashy features.",
@@ -30,11 +30,11 @@ export const profile = {
     "I enjoy working end-to-end when needed, but I’m most effective on the backend—owning APIs, integrations, deployments, and production support.",
   ],
   highlights: [
-  { title: "Backend + Cloud", desc: "Java/Spring Boot services deployed on AWS/Azure/GCP.", icon: "cloud" },
-  { title: "APIs & Security", desc: "Clean REST APIs, JWT auth, role-based access.", icon: "shield" },
-  { title: "Performance", desc: "Latency + query tuning, caching, reliable workflows.", icon: "gauge" },
-  { title: "Production mindset", desc: "Monitoring, logging, CI/CD, incident readiness.", icon: "wrench" },
-],
+    { title: "Backend + Cloud", desc: "Java/Spring Boot services deployed on AWS/Azure/GCP.", icon: "cloud" },
+    { title: "APIs & Security", desc: "Clean REST APIs, JWT auth, role-based access.", icon: "shield" },
+    { title: "Performance", desc: "Latency + query tuning, caching, reliable workflows.", icon: "gauge" },
+    { title: "Production mindset", desc: "Monitoring, logging, CI/CD, incident readiness.", icon: "wrench" },
+  ],
 
   skills: [
     {
@@ -149,43 +149,97 @@ export const profile = {
     degree: "Master’s in Computer Science",
     note: "Focused on backend systems, cloud-native applications, and scalable web platforms.",
   },
-  
+
   projects: [
-    {
-      name: "Saayam For All — Volunteer Service",
-      oneLiner: "Backend service work with real AWS patterns for uploads and secure APIs.",
-      problem:
-        "Teams needed reliable backend flows for user/volunteer features while keeping data access controlled.",
-      solution:
-        "Implemented Spring Boot APIs with clear service boundaries and storage patterns suited for production setups.",
-      impact:
-        "Improved API reliability and kept the codebase easier to extend with consistent structure and validations.",
-      tech: ["Spring Boot", "PostgreSQL", "AWS S3", "Docker"],
-      highlights: [
-        "Clean API design with validation and consistent responses",
-        "Structured service + repository layers for maintainability",
-        "Cloud storage integration pattern suitable for real projects",
-      ],
-      links: { github: "", live: "" },
-      featured: true,
-    },
-    {
-      name: "Botnest — AI Chatbot Builder",
-      oneLiner: "No-code chatbot builder with a modern product-style workflow.",
-      problem:
-        "Creating and managing chatbots usually requires custom coding and repeated setup per bot.",
-      solution:
-        "Built a Next.js app with a reusable flow to create bots, manage configs, and connect integrations cleanly.",
-      impact:
-        "Faster iteration for new bots and a clearer product workflow that can scale to more features.",
-      tech: ["Next.js", "TypeScript", "Tailwind", "Prisma"],
-      highlights: [
-        "Reusable UI components and clean routing structure",
-        "Structured data model for bots/configuration",
-        "Product-style UX focused on simple flows",
-      ],
-      links: { github: "", live: "" },
-      featured: true,
-    },
+      {
+        name: "BotNest — AI Chatbot Builder Platform",
+        featured: true,
+        oneLiner:
+          "Full-stack AI chatbot platform built as a Master’s capstone project to create and manage customizable chatbots.",
+        problem:
+          "Teams needed a way to build and deploy AI chatbots without writing custom code, while still controlling configuration, access, and usage.",
+        solution:
+          "Built a full-stack platform with reusable chatbot flows, secure authentication, subscription handling, and persistent conversation storage.",
+        impact:
+          "Enabled faster chatbot setup with a clean product-style workflow and a scalable architecture suitable for future expansion.",
+        highlights: [
+          "Designed modular backend APIs and data models",
+          "Integrated OpenAI for AI-driven conversations",
+          "Implemented authentication, billing, and role-based access",
+          "Coordinated team delivery as Scrum Master"
+        ],
+        tech: [
+          "Next.js",
+          "TypeScript",
+          "Node.js",
+          "PostgreSQL",
+          "Prisma",
+          "OpenAI",
+          "Clerk",
+          "Stripe",
+          "Docker",
+          "Vercel"
+        ],
+        links: {
+          github: "https://github.com/BotNestOrg/BotNest"
+        }
+      },
+
+      {
+        name: "Saayam For All — Volunteer Service",
+        featured: true,
+        oneLiner:
+          "Backend service for managing volunteer data and secure APIs in a cloud-ready environment.",
+        problem:
+          "The platform required reliable backend services to manage volunteer profiles and access-controlled data while following production-grade patterns.",
+        solution:
+          "Designed and implemented Spring Boot REST APIs with clean service boundaries, validation, and cloud storage integration patterns.",
+        impact:
+          "Improved backend reliability and maintainability with a structure that supports future scaling and feature expansion.",
+        highlights: [
+          "Built REST APIs using Spring Boot with layered architecture",
+          "Applied secure access patterns and input validation",
+          "Designed cloud-friendly storage and configuration flows",
+          "Focused on maintainable, production-style backend design"
+        ],
+        tech: [
+          "Java",
+          "Spring Boot",
+          "REST APIs",
+          "PostgreSQL",
+          "AWS",
+          "Docker"
+        ],
+        links: {
+          github: null
+        }
+      },
+
+      {
+        name: "MasterChef — Restaurant Management System",
+        featured: true,
+        oneLiner:
+          "Java-based restaurant management system for handling orders, menus, and staff workflows.",
+        problem:
+          "Small restaurants needed a simple system to manage daily operations such as orders, menus, and staff coordination.",
+        solution:
+          "Developed a Java-based application with clear domain modeling, persistence, and basic user flows.",
+        impact:
+          "Demonstrated strong Java fundamentals and end-to-end application design using core backend concepts.",
+        highlights: [
+          "Implemented core business logic using Java and OOP principles",
+          "Designed CRUD workflows for restaurant operations",
+          "Structured application using MVC-style patterns"
+        ],
+        tech: [
+          "Java",
+          "JDBC",
+          "JSP",
+          "MySQL"
+        ],
+        links: {
+          github: "https://github.com/niral-nadisara/Masterchef"
+        }
+      }
   ],
 };

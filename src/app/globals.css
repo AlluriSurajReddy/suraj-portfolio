@@ -61,4 +61,22 @@ a {
     transform: translateY(-2px);
     box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
   }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .hide-scrollbar {
+    scrollbar-width: none;
+  }
+  .hero-card {
+    box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+  }
+  .carousel-arrow {
+    @apply absolute top-1/2 -translate-y-1/2
+  bg-white/40 backdrop-blur-sm
+  text-slate-700
+    h-10 w-10 rounded-xl
+    flex items-center justify-center
+    shadow-sm
+  hover:bg-white/60 transition cursor-pointer z-20;
+  }
 }
